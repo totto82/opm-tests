@@ -1,0 +1,100 @@
+RUNSPEC
+TITLE
+   flow_ph_steam: hot water producer that flashes in the wellbore, reference depth at the surface
+
+DIMENS
+   20 1 1 /
+EQLDIMS
+/
+TABDIMS
+/
+WELLDIMS
+ 2 1 1 2 /
+ENTHALPY
+STEAM
+METRIC
+START
+   1 'JAN' 2020 /
+UNIFOUT
+GRID
+INIT
+DX
+   20*5 /
+DY
+   20*10 /
+DZ
+   20*10 /
+TOPS
+   20*995 /
+PORO
+   20*0.2 /
+PERMX
+   20*1000 /
+PERMY
+   20*1000 /
+PERMZ
+   20*1000 /
+HEATCR
+   20*600 /
+HEATCRT
+   20*0 /
+THCONR
+   20*150 /
+PROPS
+SWFN
+ 0.0 0.0  0
+ 0.5 0.25 0
+ 1.0 1.0  0 /
+SGFN
+ 0.0 0.0  0
+ 0.5 0.25 0
+ 1.0 1.0  0 /
+-- closed domain: heated liquid expands, so use a compressible rock to keep the pressure rise modest
+ROCK
+ 30 1.0e-3 /
+SOLUTION
+PRESSURE
+ 20*100 /
+TEMPI
+ 20*300 /
+SGAS
+ 20*0 /
+SUMMARY
+BPR
+ 1 1 1 /
+ 10 1 1 /
+ 20 1 1 /
+/
+BTEMP
+ 1 1 1 /
+ 5 1 1 /
+ 10 1 1 /
+ 15 1 1 /
+ 20 1 1 /
+/
+SCHEDULE
+RPTRST
+ 'BASIC=2' /
+-- the reference depth is the surface (0 m): the wellbore runs from the connections at 1000 m up to the surface.
+-- The producer is controlled by the pressure at the surface (the BHP item); the hot water flashes on its way up.
+-- The injector injects the volume of water at 150 C and the pressure at the surface.
+WELSPECS
+ 'INJ' 'G' 1  1 0 'WATER' /
+ 'PRO' 'G' 20 1 0 'WATER' /
+/
+COMPDAT
+ 'INJ' 1  1 1 1 'OPEN' 1* 1* 0.2 /
+ 'PRO' 20 1 1 1 'OPEN' 1* 1* 0.2 /
+/
+WCONINJE
+ 'INJ' 'WATER' 'OPEN' 'RESV' 1* 300 /
+/
+WINJTEMP
+ 'INJ' 1* 150 /
+/
+WCONPROD
+ 'PRO' 'OPEN' 'BHP' 5* 55 /
+/
+TSTEP
+ 20*1 /
+END

@@ -1,0 +1,118 @@
+RUNSPEC
+TITLE
+   flow_ph_co2store: supercritical CO2 injected through a 1000 m wellbore from the surface (reference depth 0), brine producer at the connections
+DIMENS
+   40 1 1 /
+EQLDIMS
+/
+TABDIMS
+/
+WELLDIMS
+ 2 1 1 2 /
+ENTHALPY
+CO2STORE
+OIL
+GAS
+WATER
+METRIC
+START
+   1 'JAN' 2020 /
+UNIFOUT
+GRID
+INIT
+DX
+   40*5 /
+DY
+   40*10 /
+DZ
+   40*10 /
+TOPS
+   40*995 /
+PORO
+   40*0.2 /
+PERMX
+   40*1000 /
+PERMY
+   40*1000 /
+PERMZ
+   40*1000 /
+HEATCR
+   40*2000 /
+HEATCRT
+   40*0 /
+THCONR
+   40*150 /
+PROPS
+-- Sw krw pcow
+SWFN
+ 0.2 0.0 0
+ 0.6 0.25 0
+ 1.0 1.0 0 /
+-- Sg krg pcgo
+SGFN
+ 0.0 0.0 0
+ 0.4 0.2 0
+ 0.8 0.7 0 /
+-- So krow krog (the oil phase is liquid CO2)
+SOF3
+ 0.0 0.0 0.0
+ 0.4 0.1 0.1
+ 0.8 0.8 0.8 /
+ROCK
+ 105 1.0e-3 /
+SOLUTION
+PRESSURE
+ 40*105 /
+TEMPI
+ 40*35 /
+SWAT
+ 40*1 /
+SUMMARY
+BPR
+ 1 1 1 /
+ 10 1 1 /
+ 20 1 1 /
+ 40 1 1 /
+/
+BTEMP
+ 1 1 1 /
+ 10 1 1 /
+ 20 1 1 /
+ 40 1 1 /
+/
+BSGAS
+ 1 1 1 /
+ 10 1 1 /
+ 20 1 1 /
+/
+BSWAT
+ 1 1 1 /
+ 10 1 1 /
+ 20 1 1 /
+/
+SCHEDULE
+RPTRST
+  'BASIC=2' 'ALLPROPS' /
+-- the injector has its reference depth at the surface (0 m): the CO2 is injected at 40 C and the pressure at the surface,
+-- 30 m3/day of it, and the wellbore (1000 m) gives the pressure and the temperature at the connection.
+-- The producer has its reference depth at the connection (cell centre at 1000 m).
+WELSPECS
+ 'INJ' 'G' 1  1 0    'GAS' /
+ 'PRO' 'G' 40 1 1000 'WATER' /
+/
+COMPDAT
+ 'INJ' 1  1 1 1 'OPEN' 1* 1* 0.2 /
+ 'PRO' 40 1 1 1 'OPEN' 1* 1* 0.2 /
+/
+WCONINJE
+ 'INJ' 'GAS' 'OPEN' 'RESV' 1* 30 /
+/
+WINJTEMP
+ 'INJ' 1* 40 /
+/
+WCONPROD
+ 'PRO' 'OPEN' 'BHP' 5* 104 /
+/
+TSTEP
+ 30*1 /
+END

@@ -1,0 +1,105 @@
+RUNSPEC
+TITLE
+   flow_gaswater_energy: the case of CO2_INJ1D with the blackoil CO2STORE + THERMAL model (SOURCE rates are mass rates, kg/day)
+DIMENS
+   40 1 1 /
+EQLDIMS
+/
+TABDIMS
+/
+CO2STORE
+THERMAL
+GAS
+WATER
+DISGASW
+VAPWAT
+METRIC
+START
+   1 'JAN' 2020 /
+UNIFOUT
+GRID
+INIT
+DX
+   40*5 /
+DY
+   40*10 /
+DZ
+   40*10 /
+TOPS
+   40*1500 /
+PORO
+   40*0.2 /
+PERMX
+   40*1000 /
+PERMY
+   40*1000 /
+PERMZ
+   40*1000 /
+HEATCR
+   40*2000 /
+HEATCRT
+   40*0 /
+THCONR
+   40*150 /
+PROPS
+-- Sw krw pcow
+SWFN
+ 0.2 0.0 0
+ 0.6 0.25 0
+ 1.0 1.0 0 /
+-- Sg krg pcgo
+SGFN
+ 0.0 0.0 0
+ 0.4 0.2 0
+ 0.8 0.7 0 /
+ROCK
+ 150 1.0e-3 /
+-- the brine of the CO2 tables of the enthalpy model: 10 % salt by mass = 1.9011 mol NaCl per kg water
+SALINITY
+ 1.9011 /
+SOLUTION
+PRESSURE
+ 40*150 /
+TEMPI
+ 40*45 /
+SWAT
+ 40*1 /
+SGAS
+ 40*0 /
+RSW
+ 40*0 /
+RVW
+ 40*0 /
+SUMMARY
+BPR
+ 1 1 1 /
+ 10 1 1 /
+ 20 1 1 /
+ 40 1 1 /
+/
+BTEMP
+ 1 1 1 /
+ 10 1 1 /
+ 20 1 1 /
+ 40 1 1 /
+/
+BSGAS
+ 1 1 1 /
+ 10 1 1 /
+ 20 1 1 /
+/
+BSWAT
+ 1 1 1 /
+ 10 1 1 /
+ 20 1 1 /
+/
+SCHEDULE
+RPTRST
+ 'BASIC=2' /
+SOURCE
+ 1 1 1 GAS 5000 1* 45 /
+ 40 1 1 WATER -7000 /
+/
+TSTEP
+ 30*1 /
+END

@@ -1,0 +1,67 @@
+RUNSPEC
+TITLE
+   flow_ph_steam: 2D depressurisation of two-phase water, 100x100 cells (speed test for the steam providers)
+DIMENS
+   100 100 1 /
+EQLDIMS
+/
+TABDIMS
+/
+ENTHALPY
+STEAM
+METRIC
+START
+   1 'JAN' 2020 /
+UNIFOUT
+GRID
+INIT
+DX
+   10000*5 /
+DY
+   10000*10 /
+DZ
+   10000*10 /
+TOPS
+   10000*1000 /
+PORO
+   10000*0.2 /
+PERMX
+   10000*1000 /
+PERMY
+   10000*1000 /
+PERMZ
+   10000*1000 /
+HEATCR
+   10000*2400 /
+HEATCRT
+   10000*0 /
+THCONR
+   10000*150 /
+PROPS
+SWFN
+ 0.0 0.0  0
+ 0.5 0.25 0
+ 1.0 1.0  0 /
+SGFN
+ 0.0 0.0  0
+ 0.5 0.25 0
+ 1.0 1.0  0 /
+ROCK
+ 30 1.0e-5 /
+SOLUTION
+PRESSURE
+ 10000*30 /
+TEMPI
+ 10000*233 /
+SGAS
+ 10000*0.3 /
+SUMMARY
+SCHEDULE
+RPTRST
+ 'BASIC=2' /
+SOURCE
+ 100 100 1 WATER -300000 /
+/
+TSTEP
+ 8*0.5 /
+END

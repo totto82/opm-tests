@@ -1,0 +1,118 @@
+RUNSPEC
+TITLE
+   flow_ph_co2store: a producer at the surface (reference depth 0, 1500 m wellbore) produces brine and CO2 from the aquifer; the CO2 expands and comes out of solution in the well
+DIMENS
+   40 1 1 /
+EQLDIMS
+/
+TABDIMS
+/
+WELLDIMS
+ 2 1 1 2 /
+ENTHALPY
+CO2STORE
+OIL
+GAS
+WATER
+METRIC
+START
+   1 'JAN' 2020 /
+UNIFOUT
+GRID
+INIT
+DX
+   40*5 /
+DY
+   40*10 /
+DZ
+   40*10 /
+TOPS
+   40*1495 /
+PORO
+   40*0.2 /
+PERMX
+   40*1000 /
+PERMY
+   40*1000 /
+PERMZ
+   40*1000 /
+HEATCR
+   40*2000 /
+HEATCRT
+   40*0 /
+THCONR
+   40*150 /
+PROPS
+-- Sw krw pcow
+SWFN
+ 0.2 0.0 0
+ 0.6 0.25 0
+ 1.0 1.0 0 /
+-- Sg krg pcgo
+SGFN
+ 0.0 0.0 0
+ 0.4 0.2 0
+ 0.8 0.7 0 /
+-- So krow krog (the oil phase is liquid CO2)
+SOF3
+ 0.0 0.0 0.0
+ 0.4 0.1 0.1
+ 0.8 0.8 0.8 /
+ROCK
+ 200 1.0e-3 /
+SOLUTION
+PRESSURE
+ 40*200 /
+TEMPI
+ 40*67 /
+SWAT
+ 40*0.85 /
+SUMMARY
+BPR
+ 1 1 1 /
+ 10 1 1 /
+ 20 1 1 /
+ 40 1 1 /
+/
+BTEMP
+ 1 1 1 /
+ 10 1 1 /
+ 20 1 1 /
+ 40 1 1 /
+/
+BSGAS
+ 1 1 1 /
+ 10 1 1 /
+ 20 1 1 /
+/
+BSWAT
+ 1 1 1 /
+ 10 1 1 /
+ 20 1 1 /
+/
+SCHEDULE
+RPTRST
+  'BASIC=2' 'ALLPROPS' /
+-- Both wells have their reference depth at the surface (0 m). The producer is controlled by the pressure at the
+-- surface (75 bar): the fluid of the aquifer (brine with free CO2, 200 bar and 67 C) rises through 1500 m, the pressure falls and
+-- CO2 comes out of solution. The injector puts 40 m3/day of brine of 30 C (the volume at the surface pressure) into the other end.
+WELSPECS
+ 'INJ' 'G' 1  1 0 'WATER' /
+ 'PRO' 'G' 40 1 0 'WATER' /
+/
+COMPDAT
+ 'INJ' 1  1 1 1 'OPEN' 1* 1* 0.2 /
+ 'PRO' 40 1 1 1 'OPEN' 1* 1* 0.2 /
+/
+WCONINJE
+ 'INJ' 'WATER' 'OPEN' 'RESV' 1* 40 /
+/
+WINJTEMP
+ 'INJ' 1* 30 /
+/
+WCONPROD
+  'PRO' 'OPEN' 'BHP' 5* 75 /
+/
+TSTEP
+  10*1 /
+END
